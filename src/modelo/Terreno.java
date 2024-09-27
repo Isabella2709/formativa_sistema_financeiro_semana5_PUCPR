@@ -1,16 +1,27 @@
 package modelo;
 
-public class Terreno extends Financiamento{
-    public Terreno(double valordesejadoimovel, int prazoFinanciamentoAnos, double taxadejuros){
+public class Terreno extends Financiamento {
+    private String tipoZona;
+
+    public Terreno(double valordesejadoimovel, int prazoFinanciamentoAnos, double taxadejuros, String tipoZona) {
         super(valordesejadoimovel, prazoFinanciamentoAnos, taxadejuros);
+        this.tipoZona = tipoZona;
     }
 
-    double CalcularpagamentoMensal(){
-        double valornoromal = (valordesejadoimovel / prazoFinanciamentoAnos * 12) * (1 + taxadejuros / 12);
-        double valoratualizadoJuros = valornoromal * 0.02;
-        System.out.println("O valor atualizado com as correçoes é: +"+ valoratualizadoJuros);
-        return 0;
+    @Override
+    public double calcularPagamentoMensal() {
+        double taxaMensal = taxadejuros / 12;
+        int meses = prazoFinanciamentoAnos * 12;
+        double valorTotal = (valordesejadoimovel * taxaMensal * Math.pow(1 + taxaMensal, meses))
+                / (Math.pow(1 + taxaMensal, meses) - 1);
+        return valorTotal;
+    }
+
+    @Override
+    public String toString() {
+        return "Terreno{" +
+                "tipo de zona=" + tipoZona +
+                ", " + super.toString() +
+                '}';
     }
 }
-
-
