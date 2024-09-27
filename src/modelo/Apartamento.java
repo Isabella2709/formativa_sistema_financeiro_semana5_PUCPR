@@ -26,6 +26,7 @@ public class Apartamento extends Financiamento {
                 ", número do andar=" + numeroAndar +
                 ", " + super.toString() +
                 '}';
+
     }
 }
 

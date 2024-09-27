@@ -26,5 +26,6 @@ public class Casa extends Financiamento {
                 ", tamanho do terreno=" + tamanhoTerreno +
                 ", " + super.toString() +
                 '}';
+
     }
 }
