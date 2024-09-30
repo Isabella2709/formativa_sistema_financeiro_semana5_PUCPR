@@ -1,5 +1,7 @@
 package modelo;
 
+import exceptions.DescontoMaiorDoQueJurosException;
+
 public class Casa extends Financiamento {
     private double tamanhoAreaConstruida;
     private double tamanhoTerreno;
@@ -19,6 +21,19 @@ public class Casa extends Financiamento {
         return valorTotal;
     }
 
+    // Método que calcula o pagamento mensal com desconto e verifica se o desconto é maior que os juros
+    public double calcularPagamentoMensalComDesconto(double desconto) throws DescontoMaiorDoQueJurosException {
+        double valorTotalSemDesconto = calcularPagamentoMensal();
+        double jurosMensal = valordesejadoimovel * (taxadejuros / 12);
+
+        // Lançar exceção se o desconto for maior que os juros
+        if (desconto > jurosMensal) {
+            throw new DescontoMaiorDoQueJurosException("O valor do desconto não pode ser maior do que os juros da mensalidade.");
+        }
+
+        return valorTotalSemDesconto - desconto;
+    }
+
     @Override
     public String toString() {
         return "Casa{" +
@@ -26,6 +41,5 @@ public class Casa extends Financiamento {
                 ", tamanho do terreno=" + tamanhoTerreno +
                 ", " + super.toString() +
                 '}';
-
     }
 }
